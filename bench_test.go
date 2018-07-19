@@ -34,6 +34,23 @@ func TestDotCgo(t *testing.T) {
 	}
 }
 
+func TestDotAsm(t *testing.T) {
+	length := 8
+	x := make([]float32, length)
+	y := make([]float32, length)
+
+	for i := 0; i < length; i++ {
+		x[i] = 2.0
+		y[i] = 3.0
+	}
+
+	res := asm.DotUnitary(x, y)
+	var expected float32 = 48
+	if expected != res {
+		t.Errorf("AddAsm returns wrong answer %v:%v", expected, res)
+	}
+}
+
 func BenchmarkDotCgo(b *testing.B) {
 	flag.Parse()
 	x := cgo.Malloc32(*dimension)
@@ -53,21 +70,21 @@ func BenchmarkDotCgo(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		cgo.Dot(*dimension, x, y)
 	}
+	b.StopTimer()
 }
 
-func TestDotAsm(t *testing.T) {
-	length := 8
-	x := make([]float32, length)
-	y := make([]float32, length)
+func BenchmarkDotAsm(b *testing.B) {
+	flag.Parse()
+	x := make([]float32, *dimension)
+	y := make([]float32, *dimension)
 
-	for i := 0; i < length; i++ {
-		x[i] = 2.0
-		y[i] = 3.0
+	for i := 0; i < *dimension; i++ {
+		x[i] = float32(i)
+		y[i] = float32(i)
 	}
+	b.ResetTimer()
 
-	res := asm.Dot(uint(length), &x[0], &y[0])
-	var expected float32 = 48
-	if expected != res {
-		t.Errorf("AddAsm returns wrong answer %v:%v", expected, res)
+	for i := 0; i < b.N; i++ {
+		asm.DotUnitary(x, y)
 	}
 }
