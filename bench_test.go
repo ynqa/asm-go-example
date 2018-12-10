@@ -4,8 +4,8 @@ import (
 	"flag"
 	"testing"
 
-	asm "github.com/ynqa/assembler-go-example/assembler"
-	cgo "github.com/ynqa/assembler-go-example/cgo"
+	asm "github.com/ynqa/asm-go-example/asm"
+	cgo "github.com/ynqa/asm-go-example/cgo"
 )
 
 var dimension = flag.Int("dim", 1024, "dimension of vectors. " +

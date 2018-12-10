@@ -1,3 +1,3 @@
-# assembler-go-example
+# asm-go-example
 
 `go test -bench .`
