@@ -14,11 +14,11 @@ float avx_dot32(const size_t n, const float* x, const float* y) {
 
 	__m256 *vx = (__m256 *)x;
 	__m256 *vy = (__m256 *)y;
-	
+
 	for(size_t i=0; i<end; i++) {
 		__m256 tmp = _mm256_mul_ps(vx[i], vy[i]);
 		res = _mm256_add_ps(res, tmp);
-	}	
+	}
 	return res[0] + res[1] + res[2] + res[3] +
 		res[4] + res[5] + res[6] + res[7];
 }

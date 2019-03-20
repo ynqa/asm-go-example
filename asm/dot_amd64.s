@@ -1,3 +1,5 @@
+// NOTE: COPY FROM github.com/gonum/gonum/blob/master/internal/asm/f32/dotunitary_amd64.s
+
 // Copyright ©2017 The Gonum Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
@@ -16,8 +18,8 @@
 #define SUM X0
 #define P_SUM X1
 
-// func DotUnitary(x, y []float32) (sum float32)
-TEXT ·DotUnitary(SB), NOSPLIT, $0
+// func Dot(x, y []float32) (sum float32)
+TEXT ·Dot(SB), NOSPLIT, $0
 	MOVQ    x_base+0(FP), X_PTR  // X_PTR = &x
 	MOVQ    y_base+24(FP), Y_PTR // Y_PTR = &y
 	PXOR    SUM, SUM             // SUM = 0
